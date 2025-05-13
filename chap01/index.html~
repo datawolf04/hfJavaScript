@@ -1,0 +1,14 @@
+<html>
+  <head>
+    <title>99 Bottles of beer</title>
+    <script src="bottles.js">
+
+    </script>
+  </head>
+  <body>
+    <p>
+      Song is printed to console.
+    </p>
+
+  </body>
+</html>
