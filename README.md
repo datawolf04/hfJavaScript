@@ -1,6 +1,6 @@
 # Head First Javascript Programming
 
-This is the repository for my code going through the book [_Head First Javascript_ by Eric Freedman and Elizabeth Robson](https://www.amazon.com/Head-First-JavaScript-Programming-Learners/dp/1098147944/).  I'll organize my work by chapter in the book. I'll note that oftentimes the goal is to make something semi-useful, so they start simple and build functionality as chapters progress.
+This is the repository for my code going through the book [_Head First Javascript_ by Eric Freedman and Elizabeth Robson](https://www.amazon.com/Head-First-JavaScript-Programming-Learners/dp/1098147944/).  I'll organize my work by chapter in the book. I'll note that oftentimes the goal of the _Head first_ books is to make something and build it from simple to complex. So as I do this, I'm going to create a new folder for each chapter, and start with the previous chapter's work so that I'm not building from scratch each time. I'll also summarize my work and describe the chapters in the sections below.
 
 ## Chapter 1
 Mostly intro stuff. Interacting with the `console.log` and using the `alert` function.  The code in the `chap01` folder goes through printing the _99 bottles of (root) beer_ song to the console.
@@ -78,8 +78,12 @@ I've learned a little bit about these when I've done some web scraping with R an
 ## Chapter 7 Serious Types
 This is more about types of objects and how they can be compared.  For example, if I try to compare `1 == "1"` it gives `true` because non-numeric types are coerced to numeric if the data type doesn't match.  We can force strict equality with the `===` comparison instead so that `1 === "1"` outputs `false`.
 
-## Aside
-So far, the HTML has been almost a distraction. That is, the HTML has merely been a placeholder to allow you to access the console.log on your browser and familiarize with developer tools on your browser of choice. Even the "report" for the "boss" in Chapter 4 has been produced entirely on the console. If you have ***significant*** experience with other programming languages, this might be the best place to start, and you use the previous chapters/sections/google for syntax help.  (Also, a good IDE -- the authors don't make any suggestions there either -- would be helpful. I'm using emacs because, why not, though I am sure there are other choices).  I know this isn't exactly what the authors suggest, and depending on your level of experience, your mileage may vary.
+## Aside/Commentary
+So far, the HTML has been almost a distraction. That is, the HTML has merely been a placeholder to allow you to access the console.log on your browser and familiarize with developer tools on your browser of choice. Even the "report" for the "boss" in Chapter 4 was produced entirely on the console. If you have ***significant*** experience with other programming languages, this might be the best place to start, and you use the previous chapters/sections/google for syntax help.  (Also, a good IDE -- the authors don't make any suggestions there either -- would be helpful. I'm using emacs because, why not, though there are definitely other choices).  I know the "skip to the interesting bits" approach isn't exactly what the authors suggest, and goes somewhat against the grain of the *Head First (insert computer subject here)* ethos. However, I plan on slowing down now that things are becoming more different from my own previous experience. So I would say that this approach is working for me. Depending on your level of experience, your mileage may vary.
 
 ## Chapter 8 Building an app
-***Coming Soon***
+***Coming Soon***: Let's play Battleship, for real this time. To quote the authors':
+
+> We're going to bring everything together in this chapter to create our first true *web application*. No more *silly toy games* with one battleship and a single row of hiding places. In this chapter we're building the *entire experience*...Get ready: this is an all-out, pedal-to-the-metal development chapter where we're going to lay down some serious code.
+
+Bet.
