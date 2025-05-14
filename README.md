@@ -13,7 +13,7 @@ This is all about functions. If I were less experienced with functions in genera
 
 ### Basic syntax 
 
-```
+```javascript
 function = funcName(input1, input2, ...) {
 	function code goes here;
 	
@@ -27,7 +27,7 @@ This is all about arrays. Again, I don't see the personal utility of going throu
 
 Arrays are in square brackets, and are zero-indexed
 
-```
+```javascript
 array = ["item1", "item2", "item3];
 \\ array[1] maps to "item2"
 
@@ -36,7 +36,7 @@ array.length \\ is the length of the array (3 in this case)
 
 If I wanted to print everything in an array to the console, I would do this:
 
-```
+```javascript
 for (let i = 0; i < array.length, i++){
 	let output = "Array element #" + i + "is: " + array[i]
 	console.log(output)
