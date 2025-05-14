@@ -1,51 +1,236 @@
 /*
 battleship.js
-Javascript for my battleship game.
+
+Code for my battleship game
 */
 
-// Declare varaibles - for now, have the ship in a fixed location
-let randomLoc = Math.floor(Math.random() * 5);
-let location1 = randomLoc;
-let location2 = location1 + 1;
-let location3 = location1 + 2;
+// This updates the view on the page
+let view = {
+    displayMessage(msg) {
+	let messageArea = document.getElementById("messageArea");
+	messageArea.innerHTML = msg;
+    },
+    displayHit(location) {
+	let cell = document.getElementById(location);
+	cell.setAttribute("class","hit");
+    },
+    displayMiss(location) {
+	let cell = document.getElementById(location);
+	cell.setAttribute("class","miss");
+    }
+}
 
-// Initialize game variables
-let guess; // leave empty for now
-let hits = 0;
-let guesses = 0;
-let isSunk = false;
+/*
+Initial testing:
+view.displayMiss("00");
+view.displayHit("34");
+view.displayMiss("55");
+view.displayHit("12");
+view.displayMiss("25");
+view.displayHit("26");
+view.displayMessage("Tap, tap. Is this thing on?");
+*/
 
-while (!isSunk) {
-    // Have player input guess
-    guess = prompt("Ready, aim, fire! (enter a number from 0-6):");
 
-    // Check to ensure guess is valid
-    if (guess < 0 || guess > 6) {
-	alert("Please enter a valid cell number!");
-    } else {
-	guesses = guesses + 1;
+// This is a model of the game state with all of the needed properties
+let model = {
+    boardSize: 7,
+    numShips: 3,
+    shipLength: 3,
+    shipsSunk: 0,
+    // Initialize ships object
+    ships: [{ locations: [0, 0, 0], hits: ["", "", ""]},
+	    { locations: [0, 0, 0], hits: ["", "", ""]},
+	    { locations: [0, 0, 0], hits: ["", "", ""]}],
+    // Generate ship locations randomly
+    generateShipLocations() {
+	let locations;
+	for (let i = 0; i < this.numShips; i++){
+	    do {
+		locations = this.generateShip();
+	    } while (this.collision(locations));
+	    this.ships[i].locations = locations;
+	}
+    },
+    // Generate a random ship location
+    generateShip() {
+	let direction = Math.floor(Math.random() * 2);
+	let row;
+	let col;
 
-	// Check to see if the guess has hit the target
-	// Issue: I can guess locationx more than once and still increment hits
-	if (guess == location1 || guess == location2 || guess == location3) {
-	    alert("Hit!");
-	    hits = hits + 1;
-	    
-	    // Win/end the game
-	    if (hits == 3) {
-		isSunk = true;
-		alert("You sank my battleship!")
-	    }
-	    
+	if (direction === 1) {
+	    // Ship is horizontal
+	    row = Math.floor(Math.random() * this.boardSize);
+	    col = Math.floor(Math.random() * (this.boardSize - this.shipLength + 1));
 	} else {
-	    alert("Miss!");
+	    // Ship is vertical
+	    col = Math.floor(Math.random() * this.boardSize);
+	    row = Math.floor(Math.random() * (this.boardSize - this.shipLength + 1));
+	}
+
+	let newShipLocations = [];
+	for (let i = 0; i < this.shipLength; i++) {
+	    if (direction === 1) {
+		newShipLocations.push(`${row}${(col+i)}`);
+	    } else {
+		newShipLocations.push(`${(row+i)}${col}`);
+	    }
+	}
+	return newShipLocations;
+    },
+    // Test to see if the ship location "collides" with another ship
+    collision (locations) {
+	for (let i = 0; i < this.numShips; i++) {
+	    let ship = this.ships[i];
+	    for (let j = 0; j < locations.length; j++) {
+		if (ship.locations.includes(locations[j])) {
+		    return true;
+		}
+	    }
+	}
+	return false;
+    },
+    // Accept the input from the form and determine if there is a hit/miss
+    fire(guess) {
+	for (let i = 0; i < this.numShips; i++) {
+	    // Iterate over the ships
+	    let ship = this.ships[i];
+	    let index = ship.locations.indexOf(guess);
+	    if (index >= 0) {
+		if (ship.hits[index] == "hit") {
+		    // Ship was already hit
+		    view.displayMessage("You already guessed there");
+		    return false;
+		} else {
+		    // We have a (new) hit
+		    ship.hits[index] = "hit";
+		    // Change the page/send message
+		    view.displayHit(guess);
+		    view.displayMessage("HIT!");
+		    // If ship is sunk, increment number of sunk ships.
+		    if (this.isSunk(ship)) {
+			// Message
+			view.displayMessage("You sunk my battleship!");
+			this.shipsSunk++;
+		    }
+		    return true;
+		}
+	    } 
+	}
+	// We have a miss. Change the page and display a message
+	view.displayMiss(guess);
+	view.displayMessage("You missed.");
+	return false;
+    },
+    // Test if ship is sunk
+    isSunk(ship) {
+	return (!ship.hits.includes(""));
+    }
+};
+
+
+/*
+Test the model.fire method
+model.fire("53");
+
+model.fire("06");
+model.fire("16");
+model.fire("26");
+
+model.fire("34");
+model.fire("24");
+model.fire("44");
+
+model.fire("12");
+model.fire("11");
+model.fire("10");
+*/
+
+// Now we need to update the model and process guesses so that the page is interactive.
+let controller = {
+    guesses: 0,
+    // Function that takes an input of the form "C3" and outputs the corresponding cell ID
+    parseGuess(guess) {
+	// Only letters on our battleship grid
+	const alphabet = ["A", "B", "C", "D", "E", "F", "G"];
+
+	if (guess === null || guess.length !== 2) {
+	    alert("Oops, please enter a letter and a number on the board.");
+	} else {
+	    let firstChar = guess.charAt(0);
+	    let row = alphabet.indexOf(firstChar.toUpperCase());
+	    let column = guess.charAt(1);
+
+	    if (isNaN(column)) {
+		alert("Oops, that isn't on the board.");
+	    } else if (row < 0 || row >= model.boardSize || column < 0 || column >= model.boardSize) {
+		alert("Oops, that is off the board!");
+	    } else {
+		return row + column;
+	    }
+	}
+	return null;
+    },
+    // Process a guess from the form
+    processGuess(guess) {
+	let location = this.parseGuess(guess);
+	if (location !== null) {
+	    this.guesses++;
+	    // true/false output of model fire. This also updates the page
+	    let hit = model.fire(location);
+	    if (hit && model.shipsSunk === model.numShips) {
+		view.displayMessage(`You sank all my battleships in ${this.guesses} guesses`);
+	    }
 	}
     }
 }
 
-let stats = "You took " + guesses + " guesses to sink the battleship, " +
-	"which means your shooting accuracy was " + (3/guesses);
+/*
+controller.processGuess("A0");
 
-alert(stats);
+controller.processGuess("A6");
+controller.processGuess("B6");
+controller.processGuess("C6");
+
+controller.processGuess("C4");
+controller.processGuess("D4");
+controller.processGuess("E4");
+
+controller.processGuess("B0");
+controller.processGuess("B1");
+controller.processGuess("B2");
+*/
+
+// Handler function
+function init() {
+    let fireButton = document.getElementById("fireButton");
+    fireButton.onclick = handleFireButton;
+    // Allow for pressing return key instead of clicking fire button
+    let guessInput = document.getElementById("guessInput");
+    guessInput.onkeypress = handleKeyPress;
+    // Randomly place the ships on the board
+    model.generateShipLocations();
+}
+
+// get value from form
+function handleFireButton() {
+    let guessInput = document.getElementById("guessInput");
+    let guess = guessInput.value;
+    // Pass the guess to the controller
+    controller.processGuess(guess);
+    // Reset the form
+    guessInput.value = "";
+}
+
+function handleKeyPress(e) {
+    let fireButton = document.getElementById("fireButton");
+    if (e.keyCode === 13) {
+	fireButton.click();
+	return false;
+    }
+}
+
+window.onload = init;
+
 
 

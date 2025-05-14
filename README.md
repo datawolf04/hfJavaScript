@@ -82,8 +82,19 @@ This is more about types of objects and how they can be compared.  For example, 
 So far, the HTML has been almost a distraction. That is, the HTML has merely been a placeholder to allow you to access the console.log on your browser and familiarize with developer tools on your browser of choice. Even the "report" for the "boss" in Chapter 4 was produced entirely on the console. If you have ***significant*** experience with other programming languages, this might be the best place to start, and you use the previous chapters/sections/google for syntax help.  (Also, a good IDE -- the authors don't make any suggestions there either -- would be helpful. I'm using emacs because, why not, though there are definitely other choices).  I know the "skip to the interesting bits" approach isn't exactly what the authors suggest, and goes somewhat against the grain of the *Head First (insert computer subject here)* ethos. However, I plan on slowing down now that things are becoming more different from my own previous experience. So I would say that this approach is working for me. Depending on your level of experience, your mileage may vary.
 
 ## Chapter 8 Building an app
-***Coming Soon***: Let's play Battleship, for real this time. To quote the authors':
+Let's play Battleship, for real this time. The app works and the code is in the `chap08` folder. I made one change to the code from the book, specifically, I limited the impact of the bug related to guessing the same location over and over. The biggest question that I have is can I get HTML/CSS/JS to draw the battleship grid and dynamically generate the id's for the target cells?  I ask in part because "real" battleship is a 10x10 grid. I suspect the answer is yes, but that's not functionality that we want in this chapter. Other things that I'm interested in from a design perspective.
 
-> We're going to bring everything together in this chapter to create our first true *web application*. No more *silly toy games* with one battleship and a single row of hiding places. In this chapter we're building the *entire experience*...Get ready: this is an all-out, pedal-to-the-metal development chapter where we're going to lay down some serious code.
+- The font size on the message is too small
+- The form overlaps the table
 
-Bet.
+As a fun aside, I let my kids play. A few things that I would want to consider if I were designing this for kids.
+
+- Let them shoot with the mouse.
+- Give them the ability to type in 'a1' or 'A1'. (Actually, I did this too. `toUpperCase()` is your friend).
+- Make cool effects such as animating the hit/miss.
+
+As an _extra_ fun aside, I asked my son (who has learned some JS) if he could figure out how to cheat. I had to help him (and now he'll blab to anyone who wants to learn). But he had interacted with the console before, so that was interesting.
+
+## Chapter 9 Getting asynchronous
+***Coming soon***
+
