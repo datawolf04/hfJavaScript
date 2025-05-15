@@ -89,7 +89,7 @@ Let's play Battleship, for real this time. The app works and the code is in the 
 
 As a fun aside, I let my kids play. A few things that I would want to consider if I were designing this for kids.
 
-- Let them shoot with the mouse.
+- Let them shoot with the mouse. (I've done this in the `battleship` folder after learning some other things.)
 - Give them the ability to type in 'a1' or 'A1'. (Actually, I did this too. `toUpperCase()` is your friend).
 - Make cool effects such as animating the hit/miss.
 
