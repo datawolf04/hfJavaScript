@@ -96,5 +96,5 @@ As a fun aside, I let my kids play. A few things that I would want to consider i
 As an _extra_ fun aside, I asked my son (who has learned some JS) if he could figure out how to cheat. I had to help him (and now he'll blab to anyone who wants to learn). But he had interacted with the console before, so that was interesting.
 
 ## Chapter 9 Getting asynchronous
-***Coming soon***
+Oftentimes, when designing an app with interactivity, you want it to react to events. For example, in the battleship game, when you click "Fire!", it tested the location you typed in to see if it was a Hit or Miss (and execute other logic). In this chapter, I can see the beginnings of letting people shoot with the mouse. (Although I don't know if they will have us do it in this book.) My example code is in the `chap09` folder. 
 
