@@ -98,3 +98,27 @@ As an _extra_ fun aside, I asked my son (who has learned some JS) if he could fi
 ## Chapter 9 Getting asynchronous
 Oftentimes, when designing an app with interactivity, you want it to react to events. For example, in the battleship game, when you click "Fire!", it tested the location you typed in to see if it was a Hit or Miss (and execute other logic). In this chapter, I can see the beginnings of letting people shoot with the mouse. (Although I don't know if they will have us do it in this book.) My example code is in the `chap09` folder. 
 
+## Chapter 10 Liberated Functions
+
+This is all about function objects.  Essentially it allows you to chain operations/methods together. The syntax is quite similar to Python. The big functions used here are listed below, along with a typical use case.  Practically speaking, this is often used with objects that have are structured like a data table where each row is an observation and each column is a property, but these examples will stick to 1D. This is similar to R `dplyr` package functionality. Note that these can be chained together with a period, much like R uses the pipe `|>` character.
+
+- `map` Suppose you have a list of temperatures in degrees Fahrenheit, but since you are talking to people from not America, you want to convert them to Celsius so they can understand the context. You are doing the same operation on all items in the list.
+```javascript
+let tempF = // list of temps in Fahrenheit;
+let tempC = tempF.map((tF)=> (tF-32)*5/9); 
+```
+
+- `filter` selects the portion of the given array that matches a condition.
+```javascript
+let lowTemps = tempF.filter((tF) => (tf < 20));
+```
+
+- `reduce` Reduces an array to a single value. For example if you want to find the average temperature.
+```javascript
+let avgTempF = tempF.reduce((tot, tempF) => tot + tempF, 0) / tempF.length;
+```
+
+- `forEach` Iterates over an array. You can do more than the standard `map`.
+
+## Chapter 11 Serious Functions
+
