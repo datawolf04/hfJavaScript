@@ -122,3 +122,6 @@ let avgTempF = tempF.reduce((tot, tempF) => tot + tempF, 0) / tempF.length;
 
 ## Chapter 11 Serious Functions
 
+The authors are talking about order of function definition, as well as the scope of variables in functions. It's worth a breezy read, but, again, this is standard programming stuff. (i.e., Local variables are local)
+
+## Chapter 12 Creating Objects
